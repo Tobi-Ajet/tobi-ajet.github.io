@@ -14,10 +14,149 @@
 
     body {
       font-family: "Fira Code", monospace;
-      background-color: #0a0e14;
-      color: #00ff41;
       overflow: hidden;
       height: 100vh;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    #theme-selector {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: rgba(0, 0, 0, 0.85);
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .theme-btn {
+      width: 36px;
+      height: 36px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.15);
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .theme-btn.active {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary);
+      transform: scale(1.05);
+    }
+
+    .theme-btn::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.95);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      border: 1px solid var(--primary);
+    }
+
+    .theme-btn:hover::after {
+      opacity: 1;
+    }
+
+    #theme-matrix { background: linear-gradient(135deg, #0a0e14 0%, #00ff41 100%); }
+    #theme-cyberpunk { background: linear-gradient(135deg, #0f0f23 0%, #ff00ff 50%, #00ffff 100%); }
+    #theme-dracula { background: linear-gradient(135deg, #282a36 0%, #50fa7b 100%); }
+    #theme-nord { background: linear-gradient(135deg, #2e3440 0%, #88c0d0 100%); }
+    #theme-monokai { background: linear-gradient(135deg, #272822 0%, #a6e22e 100%); }
+    #theme-light { background: linear-gradient(135deg, #f5f5f5 0%, #2e7d32 100%); }
+
+    /* Matrix Theme (Default) */
+    body {
+      background-color: #0a0e14;
+      --primary: #00ff41;
+      --secondary: #00bcd4;
+      --background: #0a0e14;
+      --text: #00ff41;
+      --accent: #ffcc00;
+      --error: #ff6b6b;
+      --muted: #8b949e;
+    }
+
+    /* Cyberpunk Theme */
+    body.theme-cyberpunk {
+      background-color: #0f0f23;
+      --primary: #ff00ff;
+      --secondary: #00ffff;
+      --background: #0f0f23;
+      --text: #ff00ff;
+      --accent: #ffff00;
+      --error: #ff0055;
+      --muted: #6a6a8e;
+    }
+
+    /* Light Theme */
+    body.theme-light {
+      background-color: #f5f5f5;
+      --primary: #2e7d32;
+      --secondary: #0277bd;
+      --background: #f5f5f5;
+      --text: #1a1a1a;
+      --accent: #f57c00;
+      --error: #c62828;
+      --muted: #757575;
+    }
+
+    /* Dracula Theme */
+    body.theme-dracula {
+      background-color: #282a36;
+      --primary: #50fa7b;
+      --secondary: #8be9fd;
+      --background: #282a36;
+      --text: #f8f8f2;
+      --accent: #ffb86c;
+      --error: #ff5555;
+      --muted: #6272a4;
+    }
+
+    /* Nord Theme */
+    body.theme-nord {
+      background-color: #2e3440;
+      --primary: #88c0d0;
+      --secondary: #81a1c1;
+      --background: #2e3440;
+      --text: #d8dee9;
+      --accent: #ebcb8b;
+      --error: #bf616a;
+      --muted: #4c566a;
+    }
+
+    /* Monokai Theme */
+    body.theme-monokai {
+      background-color: #272822;
+      --primary: #a6e22e;
+      --secondary: #66d9ef;
+      --background: #272822;
+      --text: #f8f8f2;
+      --accent: #e6db74;
+      --error: #f92672;
+      --muted: #75715e;
     }
 
     #terminal {
@@ -26,6 +165,8 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
+      background-color: var(--background);
+      color: var(--text);
     }
 
     #output {
@@ -37,35 +178,36 @@
     .line {
       margin: 5px 0;
       line-height: 1.6;
+      color: var(--text);
     }
 
     .prompt {
-      color: #00ff41;
+      color: var(--primary);
       font-weight: bold;
     }
 
     .command {
-      color: #00bcd4;
+      color: var(--secondary);
     }
 
     .error {
-      color: #ff6b6b;
+      color: var(--error);
     }
 
     .header {
-      color: #ffcc00;
+      color: var(--accent);
       font-weight: bold;
       margin-top: 15px;
     }
 
     .link {
-      color: #00bcd4;
+      color: var(--secondary);
       text-decoration: underline;
       cursor: pointer;
     }
 
     .link:hover {
-      color: #00ff41;
+      color: var(--primary);
     }
 
     #input-line {
@@ -74,7 +216,7 @@
     }
 
     #input-prompt {
-      color: #00ff41;
+      color: var(--primary);
       font-weight: bold;
       margin-right: 8px;
       white-space: nowrap;
@@ -84,18 +226,18 @@
       flex: 1;
       background: none;
       border: none;
-      color: #00bcd4;
+      color: var(--secondary);
       font-family: "Fira Code", monospace;
       font-size: 16px;
       outline: none;
-      caret-color: #00ff41;
+      caret-color: var(--primary);
     }
 
     .cursor {
       display: inline-block;
       width: 8px;
       height: 18px;
-      background-color: #00ff41;
+      background-color: var(--primary);
       animation: blink 1s infinite;
       margin-left: 2px;
     }
@@ -106,7 +248,7 @@
     }
 
     .ascii-art {
-      color: #00ff41;
+      color: var(--primary);
       font-size: 12px;
       line-height: 1.2;
       white-space: pre;
@@ -116,11 +258,12 @@
     .tech-tag {
       display: inline-block;
       background-color: rgba(0, 255, 65, 0.1);
-      border: 1px solid #00ff41;
+      border: 1px solid var(--primary);
       padding: 2px 8px;
       margin: 2px;
       border-radius: 3px;
       font-size: 13px;
+      color: var(--text);
     }
 
     .project-item {
@@ -128,16 +271,35 @@
       padding-left: 15px;
     }
 
+    .theme-option {
+      color: var(--text);
+      cursor: pointer;
+      padding: 3px 0;
+    }
+
+    .theme-option:hover {
+      color: var(--primary);
+    }
+
+    .theme-preview {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border-radius: 3px;
+      margin-right: 8px;
+      border: 1px solid var(--muted);
+    }
+
     #terminal::-webkit-scrollbar {
       width: 8px;
     }
 
     #terminal::-webkit-scrollbar-track {
-      background: #0a0e14;
+      background: var(--background);
     }
 
     #terminal::-webkit-scrollbar-thumb {
-      background: #00ff41;
+      background: var(--primary);
       border-radius: 4px;
     }
 
@@ -152,6 +314,16 @@
   </style>
 </head>
 <body>
+  <!-- Theme Selector -->
+  <div id="theme-selector">
+    <button class="theme-btn active" id="theme-matrix" data-tooltip="Matrix" onclick="changeTheme('matrix')"></button>
+    <button class="theme-btn" id="theme-cyberpunk" data-tooltip="Cyberpunk" onclick="changeTheme('cyberpunk')"></button>
+    <button class="theme-btn" id="theme-dracula" data-tooltip="Dracula" onclick="changeTheme('dracula')"></button>
+    <button class="theme-btn" id="theme-nord" data-tooltip="Nord" onclick="changeTheme('nord')"></button>
+    <button class="theme-btn" id="theme-monokai" data-tooltip="Monokai" onclick="changeTheme('monokai')"></button>
+    <button class="theme-btn" id="theme-light" data-tooltip="Light" onclick="changeTheme('light')"></button>
+  </div>
+
   <div id="terminal">
     <div id="output"></div>
     <div id="input-line">
@@ -250,25 +422,25 @@ ${tags}
 💼 LinkedIn: <span class="link" onclick="window.open('https://www.linkedin.com/in/tobiajetomobi/', '_blank')">linkedin.com/in/tobiajetomobi</span>
 🐙 GitHub: <span class="link" onclick="window.open('https://github.com/Tobi-Ajet/', '_blank')">github.com/Tobi-Ajet</span>
 
-<span style="color: #ffcc00;">💬 Want to collaborate or talk DevOps? Let's connect!</span>
+<span style="color: var(--accent);">💬 Want to collaborate or talk DevOps? Let's connect!</span>
 `;
       },
 
       resume: () => {
         return `
-<span style="color: #ffcc00;">📄 Resume download link would be here...</span>
-<span style="color: #8b949e;">// Add your resume PDF link to enable this feature</span>
+<span style="color: var(--accent);">https://www.linkedin.com/in/tobiajetomobi/</span>
+<span style="color: var(--muted);">Send me a message on LinkedIn</span>
 `;
       },
 
       github: () => {
         window.open('https://github.com/Tobi-Ajet/', '_blank');
-        return `<span style="color: #ffcc00;">Opening GitHub profile...</span>`;
+        return `<span style="color: var(--accent);">Opening GitHub profile...</span>`;
       },
 
       linkedin: () => {
         window.open('https://www.linkedin.com/in/tobiajetomobi/', '_blank');
-        return `<span style="color: #ffcc00;">Opening LinkedIn profile...</span>`;
+        return `<span style="color: var(--accent);">Opening LinkedIn profile...</span>`;
       },
 
       clear: () => {
@@ -314,10 +486,29 @@ ${tags}
       historyIndex = commandHistory.length;
     }
 
+    function changeTheme(themeName) {
+      // Update body class
+      document.body.className = '';
+      if (themeName !== 'matrix') {
+        document.body.classList.add(`theme-${themeName}`);
+      }
+      
+      // Update active button
+      document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`theme-${themeName}`).classList.add('active');
+      
+      // Save theme preference
+      try {
+        localStorage.setItem('terminal-theme', themeName);
+      } catch (e) {
+        // Ignore localStorage errors
+      }
+    }
+
     function showWelcome() {
       printLine(`<div class="ascii-art">${asciiLogo}</div>`);
-      printLine(`<span style="color: #ffcc00;">Welcome to Tobi's Terminal Portfolio</span>`);
-      printLine(`<span style="color: #8b949e;">Cloud & Platform Engineer | DevOps Enthusiast</span>`);
+      printLine(`<span style="color: var(--accent);">Welcome to Tobi's Terminal Portfolio</span>`);
+      printLine(`<span style="color: var(--muted);">Cloud & Platform Engineer | DevOps Enthusiast</span>`);
       printLine('');
       printLine(`Type '<span class="command">help</span>' to see available commands.`);
       printLine('');
@@ -356,9 +547,22 @@ ${tags}
     // Keep input focused
     document.addEventListener('click', () => input.focus());
     
+    // Load saved theme
+    try {
+      const savedTheme = localStorage.getItem('terminal-theme');
+      if (savedTheme) {
+        changeTheme(savedTheme);
+      }
+    } catch (e) {
+      // Ignore localStorage errors
+    }
+    
     // Initialize
     showWelcome();
     input.focus();
+
+    // Make changeTheme globally accessible
+    window.changeTheme = changeTheme;
   </script>
 </body>
 </html>
