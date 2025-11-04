@@ -1,3 +1,3 @@
 Personal website
 
-View here: https://tobiajet.github.io/tobi_site/
+View here: https://tobi-ajet.github.io/
