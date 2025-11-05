@@ -606,15 +606,23 @@ Type: <span class="command">guess [your answer]</span>
         
         if (correctAnswers.includes(answer)) {
           return `
-<span style="color: var(--primary);">🎉 ██████╗  ██████╗ ██████╗ ██████╗ ███████╗ ██████╗████████╗██╗</span>
-<span style="color: var(--primary);">   ██╔════╝ ██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝██║</span>
-<span style="color: var(--primary);">   ██║      ██║   ██║██████╔╝██████╔╝█████╗  ██║        ██║   ██║</span>
-<span style="color: var(--primary);">   ██║      ██║   ██║██╔══██╗██╔══██╗██╔══╝  ██║        ██║   ╚═╝</span>
-<span style="color: var(--primary);">   ╚██████╗ ╚██████╔╝██║  ██║██║  ██║███████╗╚██████╗   ██║   ██╗</span>
-<span style="color: var(--primary);">    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═╝   ╚═╝</span>
+<span style="color: var(--primary); font-weight: bold; font-size: 1.2em;">
+🎉 ✓ CORRECT! ✓ 🎉
+</span>
 
-Yes! It's Kubernetes! 🚀
-I deploy ML models on K8s clusters with custom operators, HPA, and GPU scheduling.
+<span style="color: var(--accent); font-weight: bold;">
+╔═══════════════════════════════════╗
+║   YES! IT'S KUBERNETES! 🚀        ║
+╚═══════════════════════════════════╝
+</span>
+
+<span style="color: var(--text);">
+You got it! I deploy ML models on K8s clusters with:
+  • Custom Operators
+  • Horizontal Pod Autoscaling (HPA)
+  • GPU scheduling for ML workloads
+  • CI/CD integration for automated deployments
+</span>
 
 <span style="color: var(--muted);">Type '<span class="command">mlops</span>' to learn more about my ML deployment experience</span>
 `;
