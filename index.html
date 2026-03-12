@@ -596,6 +596,18 @@ GitHub: <span class="link" onclick="window.open('https://github.com/Tobi-Ajet/',
         return null;
       },
 
+      history: () => {
+        if (commandHistory.length === 0) {
+          return `<span style="color: var(--muted);">No command history yet.</span>`;
+        }
+
+        const historyList = commandHistory
+          .map((cmd, index) => `  ${index + 1}  ${cmd}`)
+          .join('\n');
+
+        return `<span class="header">$ history</span>\n${historyList}`;
+      },
+
       guess: (args) => {
         const answer = args ? args.toLowerCase().trim() : '';
         const correctAnswers = ['kubernetes', 'k8s'];
