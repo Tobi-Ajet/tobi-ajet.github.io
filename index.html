@@ -450,20 +450,21 @@
 Name: Tobi Ajetomobi
 Role: Cloud & Platform Engineer
 
-I'm a Cloud & Platform Engineer focused on automation, reliability, and scalable infrastructure.
-I specialize in Kubernetes, CI/CD pipelines, and cloud-native DevOps tooling.
+I'm a Cloud & Platform Engineer with hands-on experience across AWS and Azure,
+specialising in Kubernetes infrastructure, MLOps, and platform automation at scale.
 
-<span style="color: var(--accent);">Passion:</span> Building robust, automated infrastructure
-<span style="color: var(--accent);">Focus:</span> Kubernetes, DevOps, Cloud Architecture
-<span style="color: var(--accent);">Mission:</span> Making deployments seamless and infrastructure reliable
+<span style="color: var(--accent);">Cloud:</span>         AWS (EKS, ECS, RDS) · Azure (AKS)
+<span style="color: var(--accent);">Orchestration:</span>  Kubernetes, Helm, Terraform
+<span style="color: var(--accent);">CI/CD:</span>          Concourse CI, GitOps workflows
+<span style="color: var(--accent);">MLOps:</span>          Model deployment, retraining pipelines, drift monitoring
 `;
       },
 
       skills: () => {
         const skills = [
-          'Kubernetes', 'Docker', 'Jenkins', 'Terraform', 'Ansible',
-          'AWS', 'Python', 'Bash', 'Prometheus', 'Grafana',
-          'PostgreSQL', 'MySQL', 'Git', 'CI/CD', 'Linux'
+          'Kubernetes', 'Docker', 'EKS', 'ECS', 'AKS',
+          'Terraform', 'Helm', 'Concourse CI', 'AWS', 'Python',
+          'Bash', 'PostgreSQL', 'Git', 'CI/CD', 'Linux'
         ];
         const tags = skills.map(s => `<span class="tech-tag">${s}</span>`).join('');
         return `
@@ -820,7 +821,7 @@ You got it! I deploy ML models on K8s clusters with:
     function showWelcome() {
       printLine(`<div class="ascii-art">${asciiLogo}</div>`);
       printLine(`<span style="color: var(--accent);">Welcome to Tobi's Terminal Portfolio</span>`);
-      printLine(`<span style="color: var(--muted);">Cloud & Platform Engineer | DevOps Enthusiast</span>`);
+      printLine(`<span style="color: var(--muted);">Cloud & Platform Engineer | AWS · Azure · EKS · MLOps</span>`);
       printLine('');
       printLine(`Type '<span class="command">help</span>' to see available commands.`);
       printLine(`<span style="color: var(--muted); font-style: italic;">Tip: Try typing '<span class="command">matrix</span>' or '<span class="command">hack</span>' for something cool!</span>`);
