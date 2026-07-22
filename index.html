@@ -453,7 +453,7 @@ Role: Cloud & Platform Engineer
 I'm a Cloud & Platform Engineer with hands-on experience across AWS and Azure,
 specialising in Kubernetes infrastructure, MLOps, and platform automation at scale.
 
-<span style="color: var(--accent);">Cloud:</span>         AWS (EKS, ECS, RDS) · Azure (AKS)
+<span style="color: var(--accent);">Cloud:</span>         AWS · Azure
 <span style="color: var(--accent);">Orchestration:</span>  Kubernetes, Helm, Terraform
 <span style="color: var(--accent);">CI/CD:</span>          Concourse CI, GitOps workflows
 <span style="color: var(--accent);">MLOps:</span>          Model deployment, retraining pipelines, drift monitoring
@@ -462,9 +462,9 @@ specialising in Kubernetes infrastructure, MLOps, and platform automation at sca
 
       skills: () => {
         const skills = [
-          'Kubernetes', 'Docker', 'EKS', 'ECS', 'AKS',
-          'Terraform', 'Helm', 'Concourse CI', 'AWS', 'Python',
-          'Bash', 'PostgreSQL', 'Git', 'CI/CD', 'Linux'
+          'Kubernetes', 'Docker', 'Terraform', 'Helm', 'Concourse CI',
+          'AWS', 'Azure', 'Python', 'Bash', 'PostgreSQL',
+          'Git', 'CI/CD', 'Linux', 'MLOps', 'IaC'
         ];
         const tags = skills.map(s => `<span class="tech-tag">${s}</span>`).join('');
         return `
@@ -578,8 +578,23 @@ GitHub: <span class="link" onclick="window.open('https://github.com/Tobi-Ajet/',
 
       resume: () => {
         return `
-<span style="color: var(--accent);">https://www.linkedin.com/in/tobiajetomobi/</span>
-<span style="color: var(--muted);">// Request on LinkedIn</span>
+<span class="header">$ cat resume.txt</span>
+
+<span style="color: var(--accent); font-weight: bold;">Tobi Ajetomobi</span> — Cloud & Platform Engineer
+<span style="color: var(--muted);">tobiajetomobi@gmail.com · linkedin.com/in/tobiajetomobi</span>
+
+<span style="color: var(--primary);">Experience</span>
+  Cloud & Platform Engineer
+  · Managing Kubernetes clusters on AWS (EKS/ECS) and Azure (AKS)
+  · Designing and maintaining CI/CD pipelines with Concourse CI
+  · Infrastructure as code with Terraform and Helm
+  · MLOps: model deployment, retraining pipelines, drift monitoring (Arize AI)
+
+<span style="color: var(--primary);">Skills</span>
+  Kubernetes · Terraform · Helm · AWS · Azure · Python · Bash · PostgreSQL
+
+<span style="color: var(--muted);">For full CV, connect on LinkedIn:</span>
+<span class="link" onclick="window.open('https://www.linkedin.com/in/tobiajetomobi/', '_blank')">linkedin.com/in/tobiajetomobi</span>
 `;
       },
 
