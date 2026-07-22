@@ -518,32 +518,98 @@ Kubernetes, MLflow, Docker
       },
 
       'ai-game': () => {
+        const techs = [
+          {
+            answer: ['kubernetes', 'k8s'],
+            display: 'Kubernetes',
+            hints: [
+              'It\'s a CNCF graduated project',
+              'It orchestrates containerized workloads across clusters',
+              'Greek word meaning "helmsman" or "pilot"'
+            ],
+            extraHint: 'Originally developed by Google. Abbreviated as "K8s".',
+            fact: 'K8s can run thousands of containers across hundreds of nodes with built-in self-healing.'
+          },
+          {
+            answer: ['terraform'],
+            display: 'Terraform',
+            hints: [
+              'It\'s an open-source tool by HashiCorp',
+              'It uses a declarative language called HCL',
+              'It lets you provision infrastructure across multiple cloud providers'
+            ],
+            extraHint: 'Its workflow is: write → plan → apply. State is stored in a .tfstate file.',
+            fact: 'Terraform can manage resources across AWS, Azure, GCP, and 1000+ other providers simultaneously.'
+          },
+          {
+            answer: ['docker'],
+            display: 'Docker',
+            hints: [
+              'It packages applications into portable, isolated units',
+              'It uses a layered filesystem and a client-daemon architecture',
+              'Its mascot is a whale carrying containers'
+            ],
+            extraHint: 'The open-source core project is called "Moby". Created by Solomon Hykes in 2013.',
+            fact: 'A Docker image can be as small as 5MB, compared to a full VM which can be several GBs.'
+          },
+          {
+            answer: ['helm'],
+            display: 'Helm',
+            hints: [
+              'It\'s known as the package manager for a popular orchestrator',
+              'It uses "Charts" to define, install, and upgrade applications',
+              'Its name is a nautical term — fitting for the platform it manages'
+            ],
+            extraHint: 'Helm charts are like apt/yum packages but for Kubernetes. Repos like Artifact Hub host thousands of them.',
+            fact: 'Helm manages the full lifecycle of Kubernetes apps — install, upgrade, rollback, and uninstall.'
+          },
+          {
+            answer: ['prometheus'],
+            display: 'Prometheus',
+            hints: [
+              'It\'s a CNCF graduated monitoring and alerting toolkit',
+              'It scrapes metrics from targets at defined intervals',
+              'Named after the Greek Titan who stole fire from the gods'
+            ],
+            extraHint: 'It stores data as time-series and uses a query language called PromQL.',
+            fact: 'Prometheus was originally built at SoundCloud in 2012 before being open-sourced.'
+          },
+          {
+            answer: ['argocd', 'argo cd', 'argo'],
+            display: 'Argo CD',
+            hints: [
+              'It\'s a declarative, GitOps continuous delivery tool',
+              'It continuously syncs your cluster state to match a Git repository',
+              'Named after a ship from Greek mythology'
+            ],
+            extraHint: 'It\'s Kubernetes-native and gives you a visual UI showing the live state of your deployments vs Git.',
+            fact: 'Argo CD can manage deployments across multiple Kubernetes clusters from a single control plane.'
+          }
+        ];
+
+        const idx = Math.floor(Math.random() * techs.length);
+        window._aiGame = { tech: techs[idx], attempts: 0 };
+
+        const hints = techs[idx].hints.map((h, i) => `  ${i + 1}. ${h}`).join('\n');
         return `
 <span class="header">$ python3 guess_the_tech.py</span>
 
-<span style="color: var(--accent);">🎮 DevOps Tech Guesser (AI Edition)</span>
+<span style="color: var(--accent);">DevOps Tech Guesser</span>
+I'm thinking of a DevOps/Cloud technology — you have 3 tries!
 
-I'm thinking of a DevOps/Cloud technology...
-You have 3 tries to guess it! (Type your guess as a command)
+<span style="color: var(--primary);">Hints:</span>
+${hints}
 
-<span style="color: var(--primary);">🔍 Hints:</span>
-  1. It's a CNCF graduated project
-  2. It orchestrates containerized workloads
-  3. Greek word meaning "helmsman" or "pilot"
-
-Type your guess: <span class="command">guess [technology]</span>
-Or type: <span class="command">ai-hint</span> for another clue
+Type: <span class="command">guess [technology]</span>
+Or:   <span class="command">ai-hint</span> for an extra clue
 `;
       },
 
       'ai-hint': () => {
-        return `
-<span style="color: var(--accent);">💡 Extra Hint:</span> 
-This platform was originally developed by Google and is now the industry 
-standard for container orchestration. Think "K8s"...
-
-Type: <span class="command">guess [your answer]</span>
-`;
+        if (!window._aiGame) {
+          return `<span class="error">Start a game first with: <span class="command">ai-game</span></span>`;
+        }
+        return `<span style="color: var(--accent);">Extra Hint:</span> ${window._aiGame.tech.extraHint}\n\nType: <span class="command">guess [your answer]</span>`;
       },
 
       matrix: () => {
@@ -627,41 +693,42 @@ GitHub: <span class="link" onclick="window.open('https://github.com/Tobi-Ajet/',
 
       guess: (args) => {
         const answer = args ? args.toLowerCase().trim() : '';
-        const correctAnswers = ['kubernetes', 'k8s'];
-        
+
         if (!answer) {
           return `<span class="error">Usage: guess [technology-name]</span>`;
         }
-        
-        if (correctAnswers.includes(answer)) {
+
+        if (!window._aiGame) {
+          return `<span class="error">Start a game first with: <span class="command">ai-game</span></span>`;
+        }
+
+        const { tech } = window._aiGame;
+        window._aiGame.attempts++;
+
+        if (tech.answer.includes(answer)) {
+          const attemptsText = window._aiGame.attempts === 1 ? 'on the first try!' : `in ${window._aiGame.attempts} attempts.`;
+          window._aiGame = null;
           return `
-<span style="color: var(--primary); font-weight: bold; font-size: 1.2em;">
-🎉 ✓ CORRECT! ✓ 🎉
-</span>
+<span style="color: var(--primary); font-weight: bold;">CORRECT! It's ${tech.display}!</span> ${attemptsText}
 
-<span style="color: var(--accent); font-weight: bold;">
-╔═══════════════════════════════════╗
-║   YES! IT'S KUBERNETES! 🚀        ║
-╚═══════════════════════════════════╝
-</span>
+<span style="color: var(--accent);">Did you know?</span> ${tech.fact}
 
-<span style="color: var(--text);">
-You got it! I deploy ML models on K8s clusters with:
-  • Custom Operators
-  • Horizontal Pod Autoscaling (HPA)
-  • GPU scheduling for ML workloads
-  • CI/CD integration for automated deployments
-</span>
-
-<span style="color: var(--muted);">Type '<span class="command">mlops</span>' to learn more about my ML deployment experience</span>
-`;
-        } else {
-          return `
-<span style="color: var(--error);">❌ Not quite... "${answer}" isn't the answer!</span>
-
-<span style="color: var(--muted);">Try again! Type <span class="command">ai-hint</span> for another clue or <span class="command">ai-game</span> to restart.</span>
+Type '<span class="command">ai-game</span>' to play again or '<span class="command">help</span>' for other commands.
 `;
         }
+
+        const attemptsLeft = 3 - window._aiGame.attempts;
+        if (attemptsLeft <= 0) {
+          const correct = tech.display;
+          window._aiGame = null;
+          return `
+<span style="color: var(--error);">Out of tries! The answer was: <span style="color: var(--accent);">${correct}</span></span>
+
+Type '<span class="command">ai-game</span>' to try again.
+`;
+        }
+
+        return `<span style="color: var(--error);">"${answer}" is not correct.</span> ${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} left. Type <span class="command">ai-hint</span> for a clue.`;
       },
 
       ls: () => commands.projects(),
